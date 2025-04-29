@@ -169,7 +169,7 @@ function Copy-ShareData {
     [string]$TargetServer
   )
 
-  $logname = "$(Get-Date -Format 'dd-MM-yyyy')_$env:COMPUTERNAME_to_$TargetServer_DataCopy.log"
+   $logname = "$(Get-Date -Format 'dd-MM-yyyy')_$($env:COMPUTERNAME)_to_$($TargetServer)_DataCopy.log"
 
   foreach ($share in $Shares) {
     $sourcePath = "$($share.Path)"
