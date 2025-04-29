@@ -169,6 +169,8 @@ function Copy-ShareData {
     [string]$TargetServer
   )
 
+  $logname = "$(Get-Date -Format 'dd-MM-yyyy')_$env:COMPUTERNAME_to_$TargetServer_DataCopy.log"
+
   foreach ($share in $Shares) {
     $sourcePath = "$($share.Path)"
     $targetPath = "\\$TargetServer\$($share.Name)"
@@ -184,7 +186,7 @@ function Copy-ShareData {
 
     Write-Host "Copying data from $sourcePath to $targetPath..." -ForegroundColor Cyan
 
-    $robocopy = robocopy.exe $sourcePath $targetPath /MIR /R:3 /W:5 /COPYALL /SECFIX /DCOPY:DAT /LOG+:CopyData.log
+    $robocopy = robocopy.exe $sourcePath $targetPath /MIR /R:3 /W:5 /COPYALL /SECFIX /DCOPY:DAT /LOG+:$logname
 
     if ($LASTEXITCODE -le 3) {
       Write-Host "Data copied successfully for share '$($share.Name)'." -ForegroundColor Green
