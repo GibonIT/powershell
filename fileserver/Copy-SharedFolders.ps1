@@ -44,7 +44,7 @@ function Get-Shares {
   Write-Host "Retrieving shared folders from $env:COMPUTERNAME..." -ForegroundColor Cyan
   $shares = Get-SmbShare | Where-Object {
     $_.ShareType -eq "FileSystem" -and
-    $_.Name -notmatch '^[a-zA-Z]\$$' -and $_.Name -notin @('ADMIN$', 'IPC$')
+    $_.Name -notmatch '^[a-zA-Z]\$$' -and $_.Name -notin @('ADMIN$', 'IPC$', 'Print$', 'NETLOGON', 'SYSVOL')
   }
 
   $selectedShares = $shares | Select-Object Name, Path |
